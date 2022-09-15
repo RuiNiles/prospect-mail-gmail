@@ -72,12 +72,12 @@ class TrayController {
 
         let iconPath
         if (macOS) {
-            iconPath = value ? '../../assets/outlook_macOS_unread.png' : '../../assets/outlook_macOS.png'
+            iconPath = value ? '../../assets/gmail_macOS_unread.png' : '../../assets/gmail_macOS.png'
             let trayIcon = nativeImage.createFromPath(path.join(__dirname, iconPath))
             trayIcon.setTemplateImage(true)
             return trayIcon
         } else {
-            iconPath = value ? '../../assets/outlook_linux_unread.png' : '../../assets/outlook_linux_black.png'
+            iconPath = value ? '../../assets/gmail_linux_unread.png' : '../../assets/gmail_linux_black.png'
             return nativeImage.createFromPath(path.join(__dirname, iconPath))
         }
     }

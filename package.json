@@ -3,13 +3,13 @@
   "productName": "Prospect Mail",
   "version": "0.5.0-beta",
   "main": "src/main.js",
-  "description": "Unofficial desktop client for Microsoft Outlook",
+  "description": "Unofficial desktop client for Gmail",
   "homepage": "https://github.com/julian-alarcon/prospect-mail",
   "keywords": [
     "Electron",
-    "Outlook",
+    "Gmail",
     "Microsoft",
-    "Outlook Desktop",
+    "Gmail Desktop",
     "Prospect"
   ],
   "repository": {
@@ -63,7 +63,7 @@
       "icon": "build/icons/512x512.png",
       "desktop": {
         "Name": "Prospect Mail",
-        "Comment": "Unofficial desktop client for Microsoft Outlook",
+        "Comment": "Unofficial desktop client for Gmail",
         "StartupWMClass": "prospect-mail"
       },
       "target": [

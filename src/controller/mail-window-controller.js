@@ -3,9 +3,9 @@ const settings = require('electron-settings')
 const CssInjector = require('../js/css-injector')
 const path = require('path')
 
-let outlookUrl
+let gmailUrl
 let deeplinkUrls
-let outlookUrls
+let gmailUrls
 let showWindowFrame
 let $this
 
@@ -24,13 +24,13 @@ class MailWindowController {
         // Get configurations.
         showWindowFrame = settings.getSync('showWindowFrame') === undefined || settings.getSync('showWindowFrame')===true
 
-        outlookUrl = settings.getSync('urlMainWindow') || 'https://outlook.office.com/mail'
-        deeplinkUrls = settings.getSync('urlsInternal') || ['outlook.live.com/mail/deeplink', 'outlook.office365.com/mail/deeplink', 'outlook.office.com/mail/deeplink', 'outlook.office.com/calendar/deeplink']
-        outlookUrls = settings.getSync('urlsExternal') || ['outlook.live.com', 'outlook.office365.com', 'outlook.office.com']
+        gmailUrl = settings.getSync('urlMainWindow') || 'https://mail.google.com/mail/u/0/#inbox'
+        deeplinkUrls = settings.getSync('urlsInternal') || ['https://mail.google.com/mail/deeplink']
+        gmailUrls = settings.getSync('urlsExternal') || ['mail.google.com']
         console.log('Loaded settings', {
-            outlookUrl: outlookUrl
+            gmailUrl: gmailUrl
             , deeplinkUrls: deeplinkUrls
-            , outlookUrls: outlookUrls
+            , gmailUrls: gmailUrls
         })
     }
     init() {
@@ -47,7 +47,7 @@ class MailWindowController {
 
             show: false,
             title: 'Prospect Mail',
-            icon: path.join(__dirname, '../../assets/outlook_linux_black.png'),
+            icon: path.join(__dirname, '../../assets/gmail_linux_black.png'),
             webPreferences: {
                 spellcheck: true,
                 nativeWindowOpen: true,
@@ -58,7 +58,7 @@ class MailWindowController {
         })
 
         // and load the index.html of the app.
-        this.win.loadURL(outlookUrl)
+        this.win.loadURL(gmailUrl)
 
         // Show window handler
         ipcMain.on('show', (event) => {
@@ -188,7 +188,7 @@ class MailWindowController {
                             {
                                 var notification = new Notification(unread.length + " New Messages", {
                                     body: body,
-                                    icon: "assets/outlook_linux_black.png"
+                                    icon: "assets/gmail_linux_black.png"
                                 });
                                 notification.onclick = () => {
                                     require('electron').ipcRenderer.send('show');
@@ -248,7 +248,7 @@ class MailWindowController {
             console.log('Is deeplink')
             options.webPreferences.affinity = 'main-window';
         }
-        else if (new RegExp(outlookUrls.join('|')).test(url)) {
+        else if (new RegExp(gmailUrls.join('|')).test(url)) {
             // Open calendar, contacts and tasks in the same window
             e.preventDefault()
             this.loadURL(url)
